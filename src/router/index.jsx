@@ -122,17 +122,78 @@ const authRoutes = [
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     children: [
-      {
-        path: "",
-        element: <Layout />,
-        children: [...mainRoutes]
-export const router = createBrowserRouter(routes);
-];
-
-export const router = createBrowserRouter(routes);
+      // Public routes
+      createRoute({
+        index: true,
+        element: <Dashboard />,
+        title: 'Dashboard'
+      }),
+      createRoute({
+        path: 'login',
+        element: <Login />,
+        title: 'Login'
+      }),
+      createRoute({
+        path: 'signup',
+        element: <Signup />,
+        title: 'Sign Up'
+      }),
+      
+      // Protected routes (access controlled by routes.json)
+      createRoute({
+        path: 'patients',
+        element: <Patients />,
+        title: 'Patients'
+      }),
+      createRoute({
+        path: 'doctors',
+        element: <Doctors />,
+        title: 'Doctors'
+      }),
+      createRoute({
+        path: 'appointments',
+        element: <Appointments />,
+        title: 'Appointments'
+      }),
+      createRoute({
+        path: 'departments',
+        element: <Departments />,
+        title: 'Departments'
+      }),
+      
+      // Auth callback routes
+      createRoute({
+        path: 'callback',
+        element: <Callback />,
+        title: 'Authentication Callback'
+      }),
+      createRoute({
+        path: 'error',
+        element: <ErrorPage />,
+        title: 'Error'
+      }),
+      createRoute({
+        path: 'prompt-password/:appId/:emailAddress/:provider',
+        element: <PromptPassword />,
+        title: 'Prompt Password'
+      }),
+      createRoute({
+        path: 'reset-password/:appId/:fields',
+        element: <ResetPassword />,
+        title: 'Reset Password'
+      }),
+      
+      // Catch-all route for 404
+      createRoute({
+        path: '*',
+        element: <NotFound />,
+        title: 'Page Not Found'
+      })
+    ]
+  }
 ];
 
 export const router = createBrowserRouter(routes);
