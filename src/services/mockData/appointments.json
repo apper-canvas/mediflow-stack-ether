@@ -1,0 +1,122 @@
+[
+  {
+    "Id": 1,
+    "patientId": "1",
+    "doctorId": "1",
+    "departmentId": "1",
+    "appointmentDate": "2024-03-15",
+    "appointmentTime": "10:00",
+    "status": "scheduled",
+    "reasonForVisit": "Routine hypertension check-up",
+    "notes": "Patient reports feeling well, medication compliance good",
+    "createdAt": "2024-03-10"
+  },
+  {
+    "Id": 2,
+    "patientId": "2",
+    "doctorId": "3",
+    "departmentId": "3",
+    "appointmentDate": "2024-03-15",
+    "appointmentTime": "14:30",
+    "status": "scheduled",
+    "reasonForVisit": "Diabetes management consultation",
+    "notes": "Blood sugar levels need review, adjust medication if needed",
+    "createdAt": "2024-03-08"
+  },
+  {
+    "Id": 3,
+    "patientId": "3",
+    "doctorId": "2",
+    "departmentId": "2",
+    "appointmentDate": "2024-03-16",
+    "appointmentTime": "09:15",
+    "status": "scheduled",
+    "reasonForVisit": "Annual physical examination",
+    "notes": "Young adult wellness check, preventive care focus",
+    "createdAt": "2024-03-05"
+  },
+  {
+    "Id": 4,
+    "patientId": "4",
+    "doctorId": "4",
+    "departmentId": "4",
+    "appointmentDate": "2024-03-14",
+    "appointmentTime": "11:00",
+    "status": "completed",
+    "reasonForVisit": "Cardiology follow-up",
+    "notes": "Stent functioning well, continue current medications",
+    "createdAt": "2024-03-01"
+  },
+  {
+    "Id": 5,
+    "patientId": "5",
+    "doctorId": "5",
+    "departmentId": "5",
+    "appointmentDate": "2024-03-13",
+    "appointmentTime": "15:45",
+    "status": "completed",
+    "reasonForVisit": "Asthma management",
+    "notes": "Inhaler technique reviewed, patient doing well",
+    "createdAt": "2024-03-06"
+  },
+  {
+    "Id": 6,
+    "patientId": "6",
+    "doctorId": "6",
+    "departmentId": "6",
+    "appointmentDate": "2024-03-17",
+    "appointmentTime": "08:30",
+    "status": "scheduled",
+    "reasonForVisit": "Post-operative follow-up",
+    "notes": "Check surgical site healing, remove sutures if ready",
+    "createdAt": "2024-03-11"
+  },
+  {
+    "Id": 7,
+    "patientId": "7",
+    "doctorId": "3",
+    "departmentId": "3",
+    "appointmentDate": "2024-03-18",
+    "appointmentTime": "13:00",
+    "status": "scheduled",
+    "reasonForVisit": "Thyroid function monitoring",
+    "notes": "Lab work ordered, adjust medication dosage if needed",
+    "createdAt": "2024-03-09"
+  },
+  {
+    "Id": 8,
+    "patientId": "8",
+    "doctorId": "4",
+    "departmentId": "4",
+    "appointmentDate": "2024-03-19",
+    "appointmentTime": "10:30",
+    "status": "scheduled",
+    "reasonForVisit": "Cholesterol management consultation",
+    "notes": "Review lipid panel results, discuss lifestyle modifications",
+    "createdAt": "2024-03-12"
+  },
+  {
+    "Id": 9,
+    "patientId": "1",
+    "doctorId": "7",
+    "departmentId": "7",
+    "appointmentDate": "2024-03-12",
+    "appointmentTime": "16:00",
+    "status": "cancelled",
+    "reasonForVisit": "Dental cleaning",
+    "notes": "Patient requested rescheduling due to work conflict",
+    "createdAt": "2024-03-07"
+  },
+  {
+    "Id": 10,
+    "patientId": "3",
+    "doctorId": "8",
+    "departmentId": "8",
+    "appointmentDate": "2024-03-20",
+    "appointmentTime": "14:15",
+    "status": "in-progress",
+    "reasonForVisit": "Eye examination",
+    "notes": "Routine vision screening, check for prescription changes",
+    "createdAt": "2024-03-13"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "firstName": "Dr. Amanda",
+    "lastName": "Martinez",
+    "specialization": "Internal Medicine",
+    "departmentId": "1",
+    "contactNumber": "+1-555-2001",
+    "email": "amanda.martinez@mediflow.com",
+    "availableDays": ["Monday", "Tuesday", "Wednesday", "Friday"],
+    "availableHours": "9:00 AM - 5:00 PM",
+    "status": "available"
+  },
+  {
+    "Id": 2,
+    "firstName": "Dr. Kevin",
+    "lastName": "Park",
+    "specialization": "Family Medicine",
+    "departmentId": "2",
+    "contactNumber": "+1-555-2002",
+    "email": "kevin.park@mediflow.com",
+    "availableDays": ["Monday", "Wednesday", "Thursday", "Friday"],
+    "availableHours": "8:00 AM - 4:00 PM",
+    "status": "available"
+  },
+  {
+    "Id": 3,
+    "firstName": "Dr. Rachel",
+    "lastName": "Kim",
+    "specialization": "Endocrinology",
+    "departmentId": "3",
+    "contactNumber": "+1-555-2003",
+    "email": "rachel.kim@mediflow.com",
+    "availableDays": ["Tuesday", "Wednesday", "Thursday"],
+    "availableHours": "10:00 AM - 6:00 PM",
+    "status": "busy"
+  },
+  {
+    "Id": 4,
+    "firstName": "Dr. Thomas",
+    "lastName": "Brown",
+    "specialization": "Cardiology",
+    "departmentId": "4",
+    "contactNumber": "+1-555-2004",
+    "email": "thomas.brown@mediflow.com",
+    "availableDays": ["Monday", "Tuesday", "Thursday", "Friday"],
+    "availableHours": "9:00 AM - 5:00 PM",
+    "status": "available"
+  },
+  {
+    "Id": 5,
+    "firstName": "Dr. Maria",
+    "lastName": "Lopez",
+    "specialization": "Pulmonology",
+    "departmentId": "5",
+    "contactNumber": "+1-555-2005",
+    "email": "maria.lopez@mediflow.com",
+    "availableDays": ["Monday", "Wednesday", "Friday"],
+    "availableHours": "8:30 AM - 4:30 PM",
+    "status": "available"
+  },
+  {
+    "Id": 6,
+    "firstName": "Dr. Steven",
+    "lastName": "White",
+    "specialization": "General Surgery",
+    "departmentId": "6",
+    "contactNumber": "+1-555-2006",
+    "email": "steven.white@mediflow.com",
+    "availableDays": ["Tuesday", "Thursday", "Friday"],
+    "availableHours": "7:00 AM - 3:00 PM",
+    "status": "off-duty"
+  },
+  {
+    "Id": 7,
+    "firstName": "Dr. Jennifer",
+    "lastName": "Taylor",
+    "specialization": "Dentistry",
+    "departmentId": "7",
+    "contactNumber": "+1-555-2007",
+    "email": "jennifer.taylor@mediflow.com",
+    "availableDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "availableHours": "8:00 AM - 6:00 PM",
+    "status": "available"
+  },
+  {
+    "Id": 8,
+    "firstName": "Dr. Mark",
+    "lastName": "Johnson",
+    "specialization": "Ophthalmology",
+    "departmentId": "8",
+    "contactNumber": "+1-555-2008",
+    "email": "mark.johnson@mediflow.com",
+    "availableDays": ["Monday", "Wednesday", "Thursday"],
+    "availableHours": "9:00 AM - 5:00 PM",
+    "status": "busy"
+  }
+]
