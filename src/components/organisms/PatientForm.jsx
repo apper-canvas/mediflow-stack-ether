@@ -10,7 +10,6 @@ const PatientForm = ({ isOpen, onClose, patient, onPatientSaved }) => {
     firstName: patient?.firstName || "",
     lastName: patient?.lastName || "",
     dateOfBirth: patient?.dateOfBirth || "",
-    gender: patient?.gender || "",
     contactNumber: patient?.contactNumber || "",
     email: patient?.email || "",
     address: patient?.address || "",
@@ -30,7 +29,6 @@ const PatientForm = ({ isOpen, onClose, patient, onPatientSaved }) => {
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.dateOfBirth) newErrors.dateOfBirth = "Date of birth is required";
-    if (!formData.gender) newErrors.gender = "Gender is required";
     if (!formData.contactNumber.trim()) newErrors.contactNumber = "Contact number is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     if (!formData.address.trim()) newErrors.address = "Address is required";
@@ -125,19 +123,6 @@ const PatientForm = ({ isOpen, onClose, patient, onPatientSaved }) => {
             required
           />
 
-          <FormField
-            label="Gender"
-            type="select"
-            value={formData.gender}
-            onChange={(e) => handleInputChange("gender", e.target.value)}
-            error={errors.gender}
-            required
-          >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </FormField>
 
           <FormField
             label="Contact Number"
