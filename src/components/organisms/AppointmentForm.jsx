@@ -9,15 +9,15 @@ import FormField from "@/components/molecules/FormField";
 import Modal from "@/components/molecules/Modal";
 
 const AppointmentForm = ({ isOpen, onClose, appointment, onAppointmentSaved }) => {
-  const [formData, setFormData] = useState({
-    patientId: appointment?.patientId || "",
-    doctorId: appointment?.doctorId || "",
-    departmentId: appointment?.departmentId || "",
-    appointmentDate: appointment?.appointmentDate || "",
-    appointmentTime: appointment?.appointmentTime || "",
-    reasonForVisit: appointment?.reasonForVisit || "",
-    notes: appointment?.notes || "",
-    status: appointment?.status || "scheduled"
+const [formData, setFormData] = useState({
+    patient_id_c: appointment?.patient_id_c?.Id || appointment?.patient_id_c || "",
+    doctor_id_c: appointment?.doctor_id_c?.Id || appointment?.doctor_id_c || "",
+    department_id_c: appointment?.department_id_c?.Id || appointment?.department_id_c || "",
+    appointment_date_c: appointment?.appointment_date_c || "",
+    appointment_time_c: appointment?.appointment_time_c || "",
+    reason_for_visit_c: appointment?.reason_for_visit_c || "",
+    notes_c: appointment?.notes_c || "",
+    status_c: appointment?.status_c || "scheduled"
   });
 
   const [patients, setPatients] = useState([]);
@@ -76,9 +76,9 @@ const AppointmentForm = ({ isOpen, onClose, appointment, onAppointmentSaved }) =
     
     // Auto-select department when doctor is selected
     if (field === "doctorId" && value) {
-      const selectedDoctor = doctors.find(d => d.Id === parseInt(value));
+const selectedDoctor = doctors.find(d => d.Id === parseInt(value));
       if (selectedDoctor) {
-        setFormData(prev => ({ ...prev, departmentId: selectedDoctor.departmentId }));
+        setFormData(prev => ({ ...prev, department_id_c: selectedDoctor.department_id_c?.Id || selectedDoctor.department_id_c }));
       }
     }
     
@@ -142,8 +142,8 @@ const AppointmentForm = ({ isOpen, onClose, appointment, onAppointmentSaved }) =
             >
               <option value="">Select Patient</option>
               {patients.map(patient => (
-                <option key={patient.Id} value={patient.Id}>
-                  {patient.firstName} {patient.lastName}
+<option key={patient.Id} value={patient.Id}>
+                  {patient.first_name_c} {patient.last_name_c}
                 </option>
               ))}
             </FormField>
@@ -157,9 +157,9 @@ const AppointmentForm = ({ isOpen, onClose, appointment, onAppointmentSaved }) =
               required
             >
               <option value="">Select Doctor</option>
-              {doctors.map(doctor => (
+{doctors.map(doctor => (
                 <option key={doctor.Id} value={doctor.Id}>
-                  {doctor.firstName} {doctor.lastName} - {doctor.specialization}
+                  {doctor.first_name_c} {doctor.last_name_c} - {doctor.specialization_c}
                 </option>
               ))}
             </FormField>
@@ -173,9 +173,9 @@ const AppointmentForm = ({ isOpen, onClose, appointment, onAppointmentSaved }) =
               required
             >
               <option value="">Select Department</option>
-              {departments.map(department => (
+{departments.map(department => (
                 <option key={department.Id} value={department.Id}>
-                  {department.name}
+                  {department.Name}
                 </option>
               ))}
             </FormField>

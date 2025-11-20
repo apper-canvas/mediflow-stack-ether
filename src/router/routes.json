@@ -1,0 +1,139 @@
+{
+  "/": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Dashboard accessible to authenticated users",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/patients": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Patients page requires authentication",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/appointments": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Appointments page requires authentication",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/doctors": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Doctors page requires authentication",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/departments": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Departments page requires authentication",
+            "rule": "authenticated"
+          }
+        ]
+      },
+      "redirectOnDeny": "/login"
+    }
+  },
+  "/login": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Login page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/signup": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Signup page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/callback": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Callback page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/error": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Error page is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/reset-password/**/*": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Reset password is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  },
+  "/prompt-password/**/*": {
+    "allow": {
+      "when": {
+        "conditions": [
+          {
+            "label": "Prompt password is public",
+            "rule": "public"
+          }
+        ]
+      }
+    }
+  }
+}

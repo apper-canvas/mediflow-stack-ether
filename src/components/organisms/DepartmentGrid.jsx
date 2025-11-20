@@ -28,7 +28,7 @@ const DepartmentGrid = () => {
     loadDepartments();
   }, []);
 
-  const getDepartmentIcon = (name) => {
+const getDepartmentIcon = (name) => {
     const iconMap = {
       "Internal Medicine": "Stethoscope",
       "Family Medicine": "Users",
@@ -61,56 +61,56 @@ const DepartmentGrid = () => {
         <Card key={department.Id} className="hover:card-shadow-hover transition-all duration-300">
           <Card.Content className="p-6">
             <div className="flex items-center space-x-4 mb-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-xl flex items-center justify-center">
+<div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-xl flex items-center justify-center">
                 <ApperIcon 
-                  name={getDepartmentIcon(department.name)} 
+                  name={getDepartmentIcon(department.Name)} 
                   size={32} 
                   className="text-primary-600" 
                 />
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 text-lg">
-                  {department.name}
+                  {department.Name}
                 </h3>
-                <p className="text-sm text-gray-600">{department.location}</p>
+                <p className="text-sm text-gray-600">{department.location_c}</p>
               </div>
             </div>
 
             <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-              {department.description}
+              {department.description_c}
             </p>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600">Head of Department:</span>
-                <span className="font-medium text-gray-900">{department.headOfDepartment}</span>
+                <span className="font-medium text-gray-900">{department.head_of_department_c}</span>
               </div>
               
-              <div className="flex items-center justify-between text-sm">
+<div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600">Active Patients:</span>
-                <span className="font-bold text-primary-600">{department.activePatients}</span>
+                <span className="font-bold text-primary-600">{department.active_patients_c || 0}</span>
               </div>
               
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600">Total Staff:</span>
-                <span className="font-medium text-gray-900">{department.totalStaff}</span>
+                <span className="font-medium text-gray-900">{department.total_staff_c || 0}</span>
               </div>
               
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600">Extension:</span>
-                <span className="font-medium text-gray-900">{department.contactExtension}</span>
+                <span className="font-medium text-gray-900">{department.contact_extension_c}</span>
               </div>
             </div>
 
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
+<div 
                   className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${Math.min((department.activePatients / 100) * 100, 100)}%` }}
+                  style={{ width: `${Math.min(((department.active_patients_c || 0) / 100) * 100, 100)}%` }}
                 ></div>
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Patient Load: {department.activePatients} patients
+                Patient Load: {department.active_patients_c || 0} patients
               </p>
             </div>
           </Card.Content>

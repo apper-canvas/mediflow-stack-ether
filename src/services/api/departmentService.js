@@ -1,52 +1,209 @@
-import departmentsData from "@/services/mockData/departments.json";
-
-let departments = [...departmentsData];
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+import { getApperClient } from "@/services/apperClient";
+import { toast } from "react-toastify";
+import React from "react";
+import Error from "@/components/ui/Error";
 
 export const departmentService = {
   async getAll() {
-    await delay(300);
-    return [...departments];
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.fetchRecords('departments_c', {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "description_c"}},
+          {"field": {"Name": "location_c"}},
+          {"field": {"Name": "head_of_department_c"}},
+          {"field": {"Name": "active_patients_c"}},
+          {"field": {"Name": "total_staff_c"}},
+          {"field": {"Name": "contact_extension_c"}}
+        ],
+        orderBy: [{"fieldName": "Id", "sorttype": "DESC"}]
+      });
+
+      if (!response.success) {
+        console.error("Failed to fetch departments:", response.message);
+        toast.error(response.message);
+        return [];
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching departments:", error?.response?.data?.message || error.message);
+      return [];
+    }
   },
 
   async getById(id) {
-    await delay(200);
-    const department = departments.find(d => d.Id === parseInt(id));
-    if (!department) {
-      throw new Error(`Department with ID ${id} not found`);
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.getRecordById('departments_c', parseInt(id), {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "description_c"}},
+          {"field": {"Name": "location_c"}},
+          {"field": {"Name": "head_of_department_c"}},
+          {"field": {"Name": "active_patients_c"}},
+          {"field": {"Name": "total_staff_c"}},
+          {"field": {"Name": "contact_extension_c"}}
+        ]
+      });
+
+      if (!response.success) {
+        console.error("Failed to fetch department:", response.message);
+        throw new Error(response.message);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching department ${id}:`, error?.response?.data?.message || error.message);
+      throw error;
     }
-    return { ...department };
   },
 
   async create(departmentData) {
-    await delay(400);
-    const maxId = Math.max(...departments.map(d => d.Id), 0);
-    const newDepartment = {
-      ...departmentData,
-      Id: maxId + 1
-    };
-    departments.push(newDepartment);
-    return { ...newDepartment };
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      // Filter only updateable fields
+      const createData = {
+        Name: departmentData.Name,
+        description_c: departmentData.description_c,
+        location_c: departmentData.location_c,
+        head_of_department_c: departmentData.head_of_department_c,
+        active_patients_c: departmentData.active_patients_c || 0,
+        total_staff_c: departmentData.total_staff_c || 0,
+        contact_extension_c: departmentData.contact_extension_c
+      };
+
+      const response = await apperClient.createRecord('departments_c', {
+        records: [createData]
+      });
+
+      if (!response.success) {
+        console.error("Failed to create department:", response.message);
+        toast.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to create ${failed.length} departments:`, failed);
+          failed.forEach(record => {
+            record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`));
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successful.length > 0 ? successful[0].data : null;
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error creating department:", error?.response?.data?.message || error.message);
+      throw error;
+    }
   },
 
   async update(id, departmentData) {
-    await delay(350);
-    const index = departments.findIndex(d => d.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error(`Department with ID ${id} not found`);
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      // Filter only updateable fields
+      const updateData = {
+        Id: parseInt(id),
+        Name: departmentData.Name,
+        description_c: departmentData.description_c,
+        location_c: departmentData.location_c,
+        head_of_department_c: departmentData.head_of_department_c,
+        active_patients_c: departmentData.active_patients_c,
+        total_staff_c: departmentData.total_staff_c,
+        contact_extension_c: departmentData.contact_extension_c
+      };
+
+      const response = await apperClient.updateRecord('departments_c', {
+        records: [updateData]
+      });
+
+      if (!response.success) {
+        console.error("Failed to update department:", response.message);
+        toast.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to update ${failed.length} departments:`, failed);
+          failed.forEach(record => {
+            record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`));
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successful.length > 0 ? successful[0].data : null;
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error updating department:", error?.response?.data?.message || error.message);
+      throw error;
     }
-    departments[index] = { ...departments[index], ...departmentData };
-    return { ...departments[index] };
   },
 
   async delete(id) {
-    await delay(250);
-    const index = departments.findIndex(d => d.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error(`Department with ID ${id} not found`);
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.deleteRecord('departments_c', {
+        RecordIds: [parseInt(id)]
+      });
+
+      if (!response.success) {
+        console.error("Failed to delete department:", response.message);
+        toast.error(response.message);
+        return false;
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to delete ${failed.length} departments:`, failed);
+          failed.forEach(record => {
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successful.length > 0;
+      }
+
+      return false;
+    } catch (error) {
+      console.error("Error deleting department:", error?.response?.data?.message || error.message);
+      return false;
     }
-    const deletedDepartment = departments.splice(index, 1)[0];
-    return { ...deletedDepartment };
-  }
+}
 };

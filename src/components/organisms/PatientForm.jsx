@@ -6,18 +6,18 @@ import FormField from "@/components/molecules/FormField";
 import Modal from "@/components/molecules/Modal";
 
 const PatientForm = ({ isOpen, onClose, patient, onPatientSaved }) => {
-  const [formData, setFormData] = useState({
-    firstName: patient?.firstName || "",
-    lastName: patient?.lastName || "",
-    dateOfBirth: patient?.dateOfBirth || "",
-    contactNumber: patient?.contactNumber || "",
-    email: patient?.email || "",
-    address: patient?.address || "",
-    bloodGroup: patient?.bloodGroup || "",
-    allergies: patient?.allergies ? patient.allergies.join(", ") : "",
-    medicalHistory: patient?.medicalHistory || "",
-    emergencyContact: patient?.emergencyContact || "",
-    status: patient?.status || "active"
+const [formData, setFormData] = useState({
+    first_name_c: patient?.first_name_c || "",
+    last_name_c: patient?.last_name_c || "",
+    date_of_birth_c: patient?.date_of_birth_c || "",
+    contact_number_c: patient?.contact_number_c || "",
+    email_c: patient?.email_c || "",
+    address_c: patient?.address_c || "",
+    blood_group_c: patient?.blood_group_c || "",
+    allergies_c: patient?.allergies_c || "",
+    medical_history_c: patient?.medical_history_c || "",
+    emergency_contact_c: patient?.emergency_contact_c || "",
+    status_c: patient?.status_c || "active"
   });
 
   const [errors, setErrors] = useState({});
@@ -63,9 +63,8 @@ const PatientForm = ({ isOpen, onClose, patient, onPatientSaved }) => {
     try {
       setLoading(true);
       
-      const patientData = {
-        ...formData,
-        allergies: formData.allergies.split(",").map(a => a.trim()).filter(a => a)
+const patientData = {
+        ...formData
       };
 
       if (patient) {

@@ -12,7 +12,7 @@ import ApperIcon from "@/components/ApperIcon";
 import { format, isToday } from "date-fns";
 
 const Dashboard = () => {
-  const [stats, setStats] = useState({
+const [stats, setStats] = useState({
     totalPatients: 0,
     activePatients: 0,
     todayAppointments: 0,
@@ -36,10 +36,10 @@ const Dashboard = () => {
         departmentService.getAll()
       ]);
 
-      // Calculate stats
-      const activePatients = patientsData.filter(p => p.status === "active").length;
+      // Calculate stats with database field names
+      const activePatients = patientsData.filter(p => p.status_c === "active").length;
       const todayAppointmentsCount = appointmentsData.filter(apt => 
-        isToday(new Date(apt.appointmentDate))
+        isToday(new Date(apt.appointment_date_c))
       ).length;
 
       setStats({
@@ -49,21 +49,22 @@ const Dashboard = () => {
         totalDoctors: doctorsData.length
       });
 
-      // Get today's appointments
+      // Get today's appointments with database field names
       const todayApts = appointmentsData.filter(apt => 
-        isToday(new Date(apt.appointmentDate))
+        isToday(new Date(apt.appointment_date_c))
       );
       setTodayAppointments(todayApts);
 
-      // Get recent patients (last 5 registered)
+      // Get recent patients (last 5 registered) with database field names
       const recent = patientsData
-        .sort((a, b) => new Date(b.registrationDate) - new Date(a.registrationDate))
+        .filter(p => p.registration_date_c)
+        .sort((a, b) => new Date(b.registration_date_c) - new Date(a.registration_date_c))
         .slice(0, 5);
       setRecentPatients(recent);
 
       setDepartments(departmentsData);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed to load dashboard data");
     } finally {
       setLoading(false);
     }
@@ -128,17 +129,17 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {todayAppointments.slice(0, 5).map((appointment) => (
+{todayAppointments.slice(0, 5).map((appointment) => (
                   <div key={appointment.Id} className="flex items-center justify-between p-4 bg-gradient-to-r from-primary-25 to-secondary-25 rounded-lg">
                     <div>
                       <div className="font-medium text-gray-900">
-                        Patient ID: {appointment.patientId}
+                        Patient: {appointment.patient_id_c?.Name || 'Unknown Patient'}
                       </div>
                       <div className="text-sm text-gray-600">
-                        {appointment.appointmentTime} - {appointment.reasonForVisit}
+                        {appointment.appointment_time_c} - {appointment.reason_for_visit_c}
                       </div>
                     </div>
-                    <Badge variant={appointment.status}>{appointment.status}</Badge>
+                    <Badge variant={appointment.status_c}>{appointment.status_c}</Badge>
                   </div>
                 ))}
               </div>
@@ -162,17 +163,17 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {recentPatients.map((patient) => (
+{recentPatients.map((patient) => (
                   <div key={patient.Id} className="flex items-center justify-between p-4 bg-gradient-to-r from-accent-25 to-primary-25 rounded-lg">
                     <div>
                       <div className="font-medium text-gray-900">
-                        {patient.firstName} {patient.lastName}
+                        {patient.first_name_c} {patient.last_name_c}
                       </div>
                       <div className="text-sm text-gray-600">
-                        {patient.bloodGroup} • {format(new Date(patient.registrationDate), "MMM dd, yyyy")}
+                        {patient.blood_group_c} • {format(new Date(patient.registration_date_c), "MMM dd, yyyy")}
                       </div>
                     </div>
-                    <Badge variant={patient.status}>{patient.status}</Badge>
+                    <Badge variant={patient.status_c}>{patient.status_c}</Badge>
                   </div>
                 ))}
               </div>
@@ -192,13 +193,13 @@ const Dashboard = () => {
           </Card.Header>
           <Card.Content>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {departments.slice(0, 4).map((department) => (
+{departments.slice(0, 4).map((department) => (
                 <div key={department.Id} className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
-                  <div className="font-medium text-gray-900 mb-2">{department.name}</div>
+                  <div className="font-medium text-gray-900 mb-2">{department.Name}</div>
                   <div className="space-y-1 text-sm text-gray-600">
-                    <div>Active Patients: <span className="font-semibold text-primary-600">{department.activePatients}</span></div>
-                    <div>Total Staff: <span className="font-medium">{department.totalStaff}</span></div>
-                    <div className="text-xs text-gray-500">{department.location}</div>
+                    <div>Active Patients: <span className="font-semibold text-primary-600">{department.active_patients_c || 0}</span></div>
+                    <div>Total Staff: <span className="font-medium">{department.total_staff_c || 0}</span></div>
+                    <div className="text-xs text-gray-500">{department.location_c}</div>
                   </div>
                 </div>
               ))}

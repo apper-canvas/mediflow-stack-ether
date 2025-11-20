@@ -42,11 +42,11 @@ const PatientTable = ({ onEditPatient, onViewPatient }) => {
       return;
     }
 
-    const filtered = patients.filter(patient => 
-      patient.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.contactNumber.includes(searchTerm) ||
-      patient.email.toLowerCase().includes(searchTerm.toLowerCase())
+const filtered = patients.filter(patient => 
+      patient.first_name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.last_name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.contact_number_c?.includes(searchTerm) ||
+      patient.email_c?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredPatients(filtered);
   }, [searchTerm, patients]);
@@ -107,30 +107,30 @@ const PatientTable = ({ onEditPatient, onViewPatient }) => {
               <tbody>
                 {filteredPatients.map((patient) => (
                   <tr key={patient.Id} className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-primary-25 hover:to-secondary-25 transition-all duration-200">
-                    <td className="py-4 px-4">
+<td className="py-4 px-4">
                       <div>
                         <div className="font-medium text-gray-900">
-                          {patient.firstName} {patient.lastName}
+                          {patient.first_name_c} {patient.last_name_c}
                         </div>
                         <div className="text-sm text-gray-500">
-                          {patient.gender} • {format(new Date(patient.dateOfBirth), "MMM dd, yyyy")}
+                          {patient.date_of_birth_c ? format(new Date(patient.date_of_birth_c), "MMM dd, yyyy") : 'N/A'}
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-4">
+<td className="py-4 px-4">
                       <div className="text-sm">
-                        <div className="text-gray-900">{patient.contactNumber}</div>
-                        <div className="text-gray-500">{patient.email}</div>
+                        <div className="text-gray-900">{patient.contact_number_c}</div>
+                        <div className="text-gray-500">{patient.email_c}</div>
                       </div>
                     </td>
                     <td className="py-4 px-4">
-                      <Badge variant="primary">{patient.bloodGroup}</Badge>
+                      <Badge variant="primary">{patient.blood_group_c}</Badge>
                     </td>
-                    <td className="py-4 px-4">
-                      <Badge variant={patient.status}>{patient.status}</Badge>
+<td className="py-4 px-4">
+                      <Badge variant={patient.status_c}>{patient.status_c}</Badge>
                     </td>
                     <td className="py-4 px-4 text-sm text-gray-500">
-                      {format(new Date(patient.registrationDate), "MMM dd, yyyy")}
+                      {patient.registration_date_c ? format(new Date(patient.registration_date_c), "MMM dd, yyyy") : 'N/A'}
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-center space-x-2">

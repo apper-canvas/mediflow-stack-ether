@@ -42,14 +42,14 @@ const AppointmentTable = ({ onEditAppointment }) => {
     loadData();
   }, []);
 
-  const getPatientName = (patientId) => {
+const getPatientName = (patientId) => {
     const patient = patients.find(p => p.Id === parseInt(patientId));
-    return patient ? `${patient.firstName} ${patient.lastName}` : "Unknown Patient";
+    return patient ? `${patient.first_name_c} ${patient.last_name_c}` : "Unknown Patient";
   };
 
   const getDoctorName = (doctorId) => {
     const doctor = doctors.find(d => d.Id === parseInt(doctorId));
-    return doctor ? `${doctor.firstName} ${doctor.lastName}` : "Unknown Doctor";
+    return doctor ? `${doctor.first_name_c} ${doctor.last_name_c}` : "Unknown Doctor";
   };
 
   const handleCancelAppointment = async (appointmentId) => {
@@ -58,10 +58,10 @@ const AppointmentTable = ({ onEditAppointment }) => {
     }
 
     try {
-      await appointmentService.update(appointmentId, { status: "cancelled" });
+await appointmentService.update(appointmentId, { status_c: "cancelled" });
       setAppointments(prev => 
         prev.map(apt => 
-          apt.Id === appointmentId ? { ...apt, status: "cancelled" } : apt
+          apt.Id === appointmentId ? { ...apt, status_c: "cancelled" } : apt
         )
       );
       toast.success("Appointment cancelled successfully");
@@ -72,10 +72,10 @@ const AppointmentTable = ({ onEditAppointment }) => {
 
   const handleCompleteAppointment = async (appointmentId) => {
     try {
-      await appointmentService.update(appointmentId, { status: "completed" });
+await appointmentService.update(appointmentId, { status_c: "completed" });
       setAppointments(prev => 
         prev.map(apt => 
-          apt.Id === appointmentId ? { ...apt, status: "completed" } : apt
+          apt.Id === appointmentId ? { ...apt, status_c: "completed" } : apt
         )
       );
       toast.success("Appointment marked as completed");
@@ -119,35 +119,35 @@ const AppointmentTable = ({ onEditAppointment }) => {
               <tbody>
                 {appointments.map((appointment) => (
                   <tr key={appointment.Id} className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-primary-25 hover:to-secondary-25 transition-all duration-200">
-                    <td className="py-4 px-4">
+<td className="py-4 px-4">
                       <div className="font-medium text-gray-900">
-                        {getPatientName(appointment.patientId)}
+                        {appointment.patient_id_c?.Name || 'Unknown Patient'}
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <div className="text-sm text-gray-900">
-                        {getDoctorName(appointment.doctorId)}
+                        {appointment.doctor_id_c?.Name || 'Unknown Doctor'}
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <div className="text-sm">
                         <div className="text-gray-900">
-                          {format(new Date(appointment.appointmentDate), "MMM dd, yyyy")}
+                          {appointment.appointment_date_c ? format(new Date(appointment.appointment_date_c), "MMM dd, yyyy") : 'N/A'}
                         </div>
-                        <div className="text-gray-500">{appointment.appointmentTime}</div>
+                        <div className="text-gray-500">{appointment.appointment_time_c}</div>
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <div className="text-sm text-gray-700 max-w-48 truncate">
-                        {appointment.reasonForVisit}
+                        {appointment.reason_for_visit_c}
                       </div>
                     </td>
                     <td className="py-4 px-4">
-                      <Badge variant={appointment.status}>{appointment.status}</Badge>
+                      <Badge variant={appointment.status_c}>{appointment.status_c}</Badge>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-center space-x-2">
-                        {appointment.status === "scheduled" && (
+{appointment.status_c === "scheduled" && (
                           <>
                             <Button
                               variant="ghost"
@@ -177,7 +177,7 @@ const AppointmentTable = ({ onEditAppointment }) => {
                             </Button>
                           </>
                         )}
-                        {appointment.status !== "scheduled" && (
+{appointment.status_c !== "scheduled" && (
                           <Button
                             variant="ghost"
                             size="sm"

@@ -36,9 +36,9 @@ const DoctorGrid = ({ onEditDoctor }) => {
     loadData();
   }, []);
 
-  const getDepartmentName = (departmentId) => {
+const getDepartmentName = (departmentId) => {
     const department = departments.find(d => d.Id === parseInt(departmentId));
-    return department ? department.name : "Unknown Department";
+    return department ? department.Name : "Unknown Department";
   };
 
   const getStatusColor = (status) => {
@@ -73,39 +73,39 @@ const DoctorGrid = ({ onEditDoctor }) => {
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-full flex items-center justify-center">
                   <ApperIcon name="User" size={24} className="text-primary-600" />
                 </div>
-                <div>
+<div>
                   <h3 className="font-semibold text-gray-900">
-                    {doctor.firstName} {doctor.lastName}
+                    {doctor.first_name_c} {doctor.last_name_c}
                   </h3>
-                  <p className="text-sm text-gray-600">{doctor.specialization}</p>
+                  <p className="text-sm text-gray-600">{doctor.specialization_c}</p>
                 </div>
               </div>
-              <Badge variant={getStatusColor(doctor.status)}>
-                {doctor.status}
+              <Badge variant={getStatusColor(doctor.status_c)}>
+                {doctor.status_c}
               </Badge>
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
+<div className="flex items-center space-x-2 text-sm text-gray-600">
                 <ApperIcon name="Building" size={16} />
-                <span>{getDepartmentName(doctor.departmentId)}</span>
+                <span>{doctor.department_id_c?.Name || "Unknown Department"}</span>
               </div>
               
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <ApperIcon name="Phone" size={16} />
-                <span>{doctor.contactNumber}</span>
+                <span>{doctor.contact_number_c}</span>
               </div>
               
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <ApperIcon name="Mail" size={16} />
-                <span className="truncate">{doctor.email}</span>
+                <span className="truncate">{doctor.email_c}</span>
               </div>
               
               <div className="flex items-start space-x-2 text-sm text-gray-600">
                 <ApperIcon name="Calendar" size={16} className="mt-0.5" />
                 <div>
-                  <div>{doctor.availableDays.join(", ")}</div>
-                  <div className="text-xs text-gray-500">{doctor.availableHours}</div>
+                  <div>{doctor.available_days_c ? doctor.available_days_c.split(',').join(', ') : 'N/A'}</div>
+                  <div className="text-xs text-gray-500">{doctor.available_hours_c}</div>
                 </div>
               </div>
             </div>
