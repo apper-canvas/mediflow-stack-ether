@@ -10,7 +10,7 @@ export const patientService = {
       }
 
       const response = await apperClient.fetchRecords('patients_c', {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "first_name_c"}},
           {"field": {"Name": "last_name_c"}},
@@ -22,6 +22,7 @@ export const patientService = {
           {"field": {"Name": "allergies_c"}},
           {"field": {"Name": "medical_history_c"}},
           {"field": {"Name": "emergency_contact_c"}},
+          {"field": {"Name": "description_c"}},
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "registration_date_c"}}
         ],
@@ -50,7 +51,7 @@ export const patientService = {
 
       const response = await apperClient.getRecordById('patients_c', parseInt(id), {
         fields: [
-          {"field": {"Name": "Name"}},
+{"field": {"Name": "Name"}},
           {"field": {"Name": "first_name_c"}},
           {"field": {"Name": "last_name_c"}},
           {"field": {"Name": "date_of_birth_c"}},
@@ -61,6 +62,7 @@ export const patientService = {
           {"field": {"Name": "allergies_c"}},
           {"field": {"Name": "medical_history_c"}},
           {"field": {"Name": "emergency_contact_c"}},
+          {"field": {"Name": "description_c"}},
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "registration_date_c"}}
         ]
@@ -95,9 +97,10 @@ export const patientService = {
         email_c: patientData.email_c,
         address_c: patientData.address_c,
         blood_group_c: patientData.blood_group_c,
-        allergies_c: patientData.allergies_c,
+allergies_c: patientData.allergies_c,
         medical_history_c: patientData.medical_history_c,
         emergency_contact_c: patientData.emergency_contact_c,
+        description_c: patientData.description_c,
         status_c: patientData.status_c || "active",
         registration_date_c: new Date().toISOString().split("T")[0]
       };
@@ -153,8 +156,9 @@ export const patientService = {
         address_c: patientData.address_c,
         blood_group_c: patientData.blood_group_c,
         allergies_c: patientData.allergies_c,
-        medical_history_c: patientData.medical_history_c,
+medical_history_c: patientData.medical_history_c,
         emergency_contact_c: patientData.emergency_contact_c,
+        description_c: patientData.description_c,
         status_c: patientData.status_c
       };
 
