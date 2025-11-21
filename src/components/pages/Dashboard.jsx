@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { patientService } from "@/services/api/patientService";
 import { appointmentService } from "@/services/api/appointmentService";
 import { departmentService } from "@/services/api/departmentService";
@@ -8,11 +9,13 @@ import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
+import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import { format, isToday } from "date-fns";
 
 const Dashboard = () => {
-const [stats, setStats] = useState({
+  const navigate = useNavigate();
+  const [stats, setStats] = useState({
     totalPatients: 0,
     activePatients: 0,
     todayAppointments: 0,
@@ -24,6 +27,9 @@ const [stats, setStats] = useState({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const handleAddPatient = () => {
+    navigate('/patients');
+  };
   const loadDashboardData = async () => {
     try {
       setLoading(true);
@@ -77,13 +83,21 @@ const [stats, setStats] = useState({
   if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadDashboardData} />;
 
-  return (
+return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 gradient-text">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome to MediFlow Hospital Management System</p>
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-4 sm:mb-0">
+          <h1 className="text-3xl font-bold text-gray-900 gradient-text">Dashboard</h1>
+          <p className="text-gray-600 mt-2">Welcome to MediFlow Hospital Management System</p>
+        </div>
+        <Button 
+          onClick={handleAddPatient}
+          className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+        >
+          <ApperIcon name="UserPlus" size={20} className="mr-2" />
+          Add Patient
+        </Button>
       </div>
-
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
